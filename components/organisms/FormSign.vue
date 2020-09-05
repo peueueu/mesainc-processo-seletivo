@@ -19,7 +19,7 @@
           placeholder="•••••••"
           v-model="passwordValue"
         />
-        <FlavorButton :name="buttonName" />
+        <FlavorButton :name="buttonLabel" @click="buttonMethod" />
       </div>
     </div>
   </section>
@@ -34,20 +34,47 @@ export default {
     return {
       emailValue: "",
       passwordValue: "",
+      buttonName: ""
     };
   },
   props: {
-    buttonName: {
-      type: String,
-      default: "Sign In",
-    },
     formTitle: {
-      type: String,
+      type: String
     },
     signInPage: {
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
+  computed: {
+    buttonLabel() {
+      if (this.signInPage) {
+        return (this.buttonName = "Sign In");
+      } else {
+        return (this.buttonName = "Sign Up");
+      }
+    },
+    buttonMethod() {
+      if (this.signInPage) {
+        return this.handleLogin;
+      } else {
+        return this.handleCreateAccount;
+      }
+    }
+  },
+  methods: {
+    handleLogin() {
+      this.$store.dispatch("auth/AUTHENTICATE", {
+        email: this.emailValue,
+        password: this.passwordValue
+      });
+    },
+    handleCreateAccount() {
+      this.$store.dispatch("auth/SIGN_UP", {
+        email: this.emailValue,
+        password: this.passwordValue
+      });
+    }
+  }
 };
 </script>
 
@@ -61,7 +88,7 @@ export default {
   height: inherit;
 
   .form_container {
-    width: 600px;
+    width: 500px;
   }
 
   .form_sign_body {

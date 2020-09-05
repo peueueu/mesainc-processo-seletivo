@@ -10,8 +10,6 @@
 <script>
 import FormSign from "@/components/organisms/FormSign";
 import BannerAside from "@/components/organisms/BannerAside";
-const to = "/";
-const from = "/signup";
 export default {};
 </script>
 

@@ -1,11 +1,15 @@
 <template>
-  <section class="banner_aside">
+  <section id="banneraside" class="banner_aside">
     <div class="wrapper-content">
       <BannerTitle :content="bannerTitle" />
       <div class="wrapper-content-body">
         <FlavorText :content="bannerText" />
       </div>
-      <FlavorButton class="button_banner" :name="bannerButtonName" @click="handleRoutes" />
+      <FlavorButton
+        class="button_banner"
+        :name="bannerButtonName"
+        @click="handleRoutes"
+      />
     </div>
   </section>
 </template>
@@ -19,13 +23,13 @@ export default {
     return {
       titulo: "",
       texto: "",
-      buttonName: "",
+      buttonName: ""
     };
   },
   props: {
     pageSignIn: {
-      type: Boolean,
-    },
+      type: Boolean
+    }
   },
   methods: {
     handleRoutes() {
@@ -34,7 +38,7 @@ export default {
       } else {
         this.$router.push("/");
       }
-    },
+    }
   },
   computed: {
     bannerTitle() {
@@ -57,8 +61,8 @@ export default {
       } else {
         return (this.texto = `Sign in`);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -86,6 +90,7 @@ export default {
 
   #default-btn {
     border: 2px solid $white;
+    background: transparent;
   }
 }
 </style>

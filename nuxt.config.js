@@ -49,13 +49,24 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: ["@nuxtjs/localforage"],
+  localforage: {
+    instances: [
+      {
+        name: "flavorit",
+        storeName: "flavorit_db"
+      }
+    ]
+  },
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/style-resources"],
+  modules: ["@nuxtjs/style-resources", "@nuxtjs/axios"],
   styleResources: {
     scss: ["components/bosons/*.scss"]
+  },
+  axios: {
+    baseURL: "https://reqres.in/api"
   },
   /*
    ** Build configuration
