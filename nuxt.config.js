@@ -35,9 +35,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    '~components/bosons/main.scss'
-  ],
+  css: ["~components/bosons/main.scss", "~assets/transitions.css"],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins

@@ -16,6 +16,17 @@ a {
   }
 }
 
-button:focus {
+*:focus {
   outline: none;
+}
+
+input {
+  border: none;
+}
+
+#app {
+  height: 100vh;
+  .container {
+    height: inherit;
+  }
 }
