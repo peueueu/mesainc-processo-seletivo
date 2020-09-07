@@ -1,14 +1,5 @@
 <template>
   <section id="user-page">
-    <!-- <div class="user-area">
-      <FlavorProfile
-        name="Sônia"
-        profileImage="https://images.unsplash.com/photo-1558642854-3e650c38549e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1248&q=80"
-      />
-      <div class="container-list">
-        <FlavorList />
-      </div>
-    </div> -->
     <UserPanel />
     <div class="map" v-if="loaded">
       <GMap
@@ -96,20 +87,23 @@ export default {
         .filter(l => l.visible)
         .map(l => l.name)
         .join(", ");
+    },
+    fetchAllLocations() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async position => {
+          this.centerCoord.lat = position.coords.latitude;
+          this.centerCoord.lng = position.coords.longitude;
+          const response = await this.$axios.get(
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8`
+          );
+          this.locations = [...response.data.results];
+          this.loaded = true;
+        });
+      }
     }
   },
   mounted() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async position => {
-        this.centerCoord.lat = position.coords.latitude;
-        this.centerCoord.lng = position.coords.longitude;
-        const response = await this.$axios.get(
-          `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8`
-        );
-        this.locations = [...response.data.results];
-        this.loaded = true;
-      });
-    }
+    this.fetchAllLocations();
   }
 };
 </script>
@@ -120,14 +114,14 @@ export default {
   display: flex;
 }
 
-.user-area {
-  width: 100%;
-  max-width: 450px;
-  background: $white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+// .user-area {
+//   width: 100%;
+//   max-width: 450px;
+//   background: $white;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+// }
 
 .container_list {
   display: flex !important;

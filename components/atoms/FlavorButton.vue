@@ -1,18 +1,20 @@
 <template>
-  <button id="default-btn" v-on="$listeners" :class="className">{{name}}</button>
+  <button id="default-btn" v-on="$listeners" :class="className">
+    {{ name }}
+  </button>
 </template>
 
 <script>
 export default {
   props: {
     className: {
-      type: String,
+      type: String
     },
     name: {
       type: String,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 

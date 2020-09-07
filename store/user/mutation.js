@@ -4,5 +4,8 @@ export default {
     state.first_name = first_name;
     state.last_name = last_name;
     state.avatar = avatar;
+  },
+  SET_FAV(state, value) {
+    state.isFav = value;
   }
 };

@@ -16,33 +16,33 @@ const _inputTypes = ["text", "email", "password", "checkbox"];
 export default {
   data() {
     return {
-      inputValue: "",
+      inputValue: ""
     };
   },
   props: {
     id: {
-      type: String,
+      type: String
     },
     name: {
-      type: String,
+      type: String
     },
     placeholder: {
-      type: String,
+      type: String
     },
     value: {
-      type: String,
+      type: String
     },
     type: {
       type: String,
       default: "text",
-      validator: (value) => _inputTypes.includes(value),
-    },
+      validator: value => _inputTypes.includes(value)
+    }
   },
   methods: {
     updateValue(value) {
       this.$emit("input", value);
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -51,17 +51,6 @@ export default {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: 17px;
-    left: 20px;
-    z-index: 99;
-    background: url("~assets/img/at 1.svg");
-    width: 18px;
-    height: 18px;
-  }
 
   .input_field {
     background: #e5e5e5;

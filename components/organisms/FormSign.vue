@@ -98,4 +98,30 @@ export default {
     justify-content: center;
   }
 }
+
+#email_input {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 17px;
+    left: 20px;
+    z-index: 99;
+    background: url("~assets/img/at 1.svg");
+    width: 18px;
+    height: 18px;
+  }
+}
+
+#password_input {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 17px;
+    left: 20px;
+    z-index: 99;
+    background: url("~assets/img/password 1.svg");
+    width: 18px;
+    height: 18px;
+  }
+}
 </style>

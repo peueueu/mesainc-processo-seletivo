@@ -2,5 +2,6 @@ export default () => ({
   email: "",
   first_name: "",
   last_name: "",
-  avatar: ""
+  avatar: "",
+  isFav: false
 });

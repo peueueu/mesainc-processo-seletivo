@@ -7,16 +7,25 @@
       <FlavorCard
         v-for="location in locations"
         :key="location.id"
+        :id="location.id"
         :name="location.name"
         :address="location.address"
-        @click.native.prevent="handleClick"
+        @click="showDetails(location)"
       />
     </ul>
+    <RestaurantModal
+      v-if="location"
+      @close="$event => hideDetails($event)"
+      :restaurantName="location.name"
+      :restaurantAddress="location.address"
+      :restaurantScore="location.score"
+    />
   </div>
 </template>
 
 <script>
 import FlavorCard from "@/components/atoms/FlavorCard";
+import RestaurantModal from "@/components/molecules/RestaurantModal";
 export default {
   data() {
     return {
@@ -25,34 +34,50 @@ export default {
         lng: 0.0
       },
       locations: [],
+      location: false,
       loaded: false
     };
   },
   methods: {
-    handleClick() {
-      console.log(event.target);
+    showDetails({ name, address, score }) {
+      this.location = {
+        name,
+        address,
+        score
+      };
+      console.log(this.locations);
+    },
+    hideDetails({ target, currentTarget }) {
+      if (target === currentTarget) this.location = false;
+      // this.$store.commit("user/SET_FAV", true);
+    },
+    fetchAllRestaurants() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async position => {
+          this.centerCoord.lat = position.coords.latitude;
+          this.centerCoord.lng = position.coords.longitude;
+          const response = await this.$axios.get(
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8`
+          );
+          this.locations = [...response.data.results].map(location => {
+            return {
+              name: location.name,
+              id: location.place_id,
+              address: location.vicinity,
+              isOpen: location.opening_hours,
+              score: location.rating
+            };
+          });
+          this.loaded = true;
+        });
+      }
     }
+    // async fetchRestaurant({ name, vicinity, rating }) {
+
+    // }
   },
   mounted() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async position => {
-        this.centerCoord.lat = position.coords.latitude;
-        this.centerCoord.lng = position.coords.longitude;
-        const response = await this.$axios.get(
-          `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8`
-        );
-        this.locations = [...response.data.results].map(location => {
-          return {
-            name: location.name,
-            id: location.place_id,
-            address: location.vicinity,
-            isOpen: location.opening_hours,
-            score: location.rating
-          };
-        });
-        this.loaded = true;
-      });
-    }
+    this.fetchAllRestaurants();
   }
 };
 </script>
@@ -63,7 +88,7 @@ export default {
   height: 350px;
   display: flex;
   flex-direction: column;
-  margin: 0 auto 60px;
+  margin: 0 auto 100px;
   justify-content: flex-start;
 }
 .title_wrapper {

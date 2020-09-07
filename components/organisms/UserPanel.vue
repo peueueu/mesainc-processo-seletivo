@@ -1,8 +1,9 @@
 <template>
   <div id="user-panel">
     <FlavorProfile
-      name="Sônia"
-      profileImage="https://images.unsplash.com/photo-1558642854-3e650c38549e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1248&q=80"
+      v-if="loaded"
+      :name="userInfo.firstName + ' ' + userInfo.lastName"
+      :profileImage="userInfo.avatar"
     />
     <div class="container-list">
       <FlavorList />
@@ -13,7 +14,41 @@
 <script>
 import FlavorProfile from "@/components/molecules/FlavorProfile";
 import FlavorList from "@/components/molecules/FlavorList";
-export default {};
+export default {
+  data() {
+    return {
+      userInfo: {
+        firstName: "",
+        lastName: "",
+        avatar: "",
+        email: ""
+      },
+      loaded: false
+    };
+  },
+  methods: {
+    async getUser() {
+      const user = await this.$axios.get("/users/2").then(response => {
+        return {
+          firstName: response.data.data.first_name,
+          lastName: response.data.data.last_name,
+          avatar: response.data.data.avatar,
+          email: response.data.data.email
+        };
+      });
+      this.userInfo = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        avatar: user.avatar,
+        email: user.email
+      };
+      this.loaded = true;
+    }
+  },
+  created() {
+    this.getUser();
+  }
+};
 </script>
 
 <style lang="scss" scoped>

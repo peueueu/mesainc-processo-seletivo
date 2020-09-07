@@ -42,7 +42,8 @@ export default {
    */
   plugins: [
     { src: "@/plugins/vuex-persist", ssr: false },
-    { src: "@/plugins/vue-notification", ssr: false }
+    { src: "@/plugins/vue-notification", ssr: false },
+    { src: "@/plugins/vue-star-rating", ssr: false }
   ],
   /*
    ** Auto import components
