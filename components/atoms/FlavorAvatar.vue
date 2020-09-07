@@ -7,7 +7,10 @@
         backgroundSize: 'contain'
       }"
     ></div>
-    <h3>Welcome, {{ userName }}</h3>
+    <div class="profile_info">
+      <h3>Welcome, {{ userName }}</h3>
+      <span class="sign-out" @click.prevent="handleLogout">Sign out</span>
+    </div>
   </div>
 </template>
 
@@ -21,6 +24,11 @@ export default {
     userAvatar: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    handleLogout() {
+      this.$store.dispatch("auth/SIGN_OUT");
     }
   }
 };
@@ -41,6 +49,20 @@ export default {
     color: $primaryColor;
     font-size: 1.5rem;
     margin-top: 16px;
+  }
+
+  .sign-out {
+    margin-top: 6px;
+    font-size: 1rem;
+    color: $mediumGrey;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: $primaryColor;
+      cursor: pointer;
+    }
   }
 
   .avatar {

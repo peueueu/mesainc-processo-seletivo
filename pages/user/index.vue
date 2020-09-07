@@ -1,6 +1,6 @@
 <template>
   <section id="user-page">
-    <div class="user-area">
+    <!-- <div class="user-area">
       <FlavorProfile
         name="Sônia"
         profileImage="https://images.unsplash.com/photo-1558642854-3e650c38549e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1248&q=80"
@@ -8,7 +8,8 @@
       <div class="container-list">
         <FlavorList />
       </div>
-    </div>
+    </div> -->
+    <UserPanel />
     <div class="map" v-if="loaded">
       <GMap
         v-show="centerCoord.lat && centerCoord.lng"
@@ -58,6 +59,7 @@
 <script>
 import FlavorProfile from "@/components/molecules/FlavorProfile";
 import FlavorList from "@/components/molecules/FlavorList";
+import UserPanel from "@/components/organisms/UserPanel";
 export default {
   data() {
     return {
