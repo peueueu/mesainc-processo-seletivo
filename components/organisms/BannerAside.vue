@@ -74,7 +74,7 @@ export default {
   background-size: cover;
   padding: 50px 70px;
   margin: auto 0;
-  width: 40%;
+  width: 35%;
   .wrapper-content {
     text-align: center;
     height: 100%;

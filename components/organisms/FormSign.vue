@@ -80,7 +80,7 @@ export default {
 
 <style lang="scss" scoped>
 .form_sign {
-  min-width: 60%;
+  width: 65%;
   display: flex;
   flex-direction: column;
   align-items: center;

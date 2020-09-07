@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
+  font-family: "Muli", sans-serif;
 }
 
 a {
@@ -22,6 +23,11 @@ a {
 
 input {
   border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
 
 #app {

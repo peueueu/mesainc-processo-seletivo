@@ -3,12 +3,12 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: "universal",
+  mode: "spa",
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  target: "server",
+  target: "static",
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -40,12 +40,18 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: [
+    { src: "@/plugins/vuex-persist", ssr: false },
+    { src: "@/plugins/vue-notification", ssr: false }
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
   components: true,
+  // router: {
+  //   middleware: "authentication"
+  // },
   /*
    ** Nuxt.js dev-modules
    */
@@ -61,13 +67,25 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/style-resources", "@nuxtjs/axios"],
+  modules: [
+    "nuxt-lazy-load",
+    "@nuxtjs/style-resources",
+    "@nuxtjs/axios",
+    [
+      "nuxt-gmaps",
+      {
+        key: "AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8",
+        locationbias: "ipbias"
+      }
+    ]
+  ],
   styleResources: {
     scss: ["components/bosons/*.scss"]
   },
   axios: {
     baseURL: "https://reqres.in/api"
   },
+
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
