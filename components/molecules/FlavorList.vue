@@ -59,7 +59,9 @@ export default {
           this.centerCoord.lat = position.coords.latitude;
           this.centerCoord.lng = position.coords.longitude;
           const response = await this.$axios.get(
-            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8`
+            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=${
+              process.env.API_KEY
+            }`
           );
           this.locations = [...response.data.results].map(location => {
             return {
@@ -103,9 +105,9 @@ export default {
   overflow-y: scroll;
 }
 
-@media (min-width: 1500px) {
+@media (min-device-height: 960px) {
   #flavorList {
-    height: 480px;
+    height: 700px;
   }
 }
 </style>

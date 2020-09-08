@@ -51,6 +51,9 @@ export default {
     { src: "@/plugins/vue-notification", ssr: false },
     { src: "@/plugins/vue-star-rating", ssr: false }
   ],
+  env: {
+    API_KEY: process.env.API_KEY || ""
+  },
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
