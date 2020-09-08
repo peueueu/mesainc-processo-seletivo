@@ -107,7 +107,7 @@ export default {
 
 @media (min-device-height: 960px) {
   #flavorList {
-    height: 600px;
+    height: 480px;
   }
 }
 </style>
