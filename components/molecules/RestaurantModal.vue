@@ -2,7 +2,9 @@
   <div class="opac-bg" @click="$emit('close', $event)">
     <div id="restaurant-modal">
       <div class="modal-header">
-        <h1>{{ restaurantName }}</h1>
+        <h1 class="modal-title">
+          {{ restaurantName }}
+        </h1>
         <div class="info-header">
           <span>{{ restaurantAddress }}</span>
 
@@ -84,10 +86,6 @@ export default {
       this.review = value;
     },
     async storeComment() {
-      // id: uuid.v1(),
-      // place_id: this.restaurantId,
-      // rating: this.rating,
-      // comment: this.review
       await localforage.getItem("ratings").then(ratings => {
         ratings = ratings || [];
         ratings.push({
@@ -148,7 +146,7 @@ export default {
       align-items: center;
     }
 
-    h1 {
+    h1.modal-title {
       color: $white;
       margin-bottom: 6px;
     }

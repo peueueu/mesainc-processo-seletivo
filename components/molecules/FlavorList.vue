@@ -8,6 +8,7 @@
         v-for="location in locations"
         :key="location.id"
         :id="location.id"
+        :restaurantId="location.id"
         :name="location.name"
         :address="location.address"
         @click="showDetails(location)"
@@ -51,7 +52,6 @@ export default {
     },
     hideDetails({ target, currentTarget }) {
       if (target === currentTarget) this.location = false;
-      // this.$store.commit("user/SET_FAV", true);
     },
     fetchAllRestaurants() {
       if (navigator.geolocation) {
@@ -74,9 +74,6 @@ export default {
         });
       }
     }
-    // async fetchRestaurant({ name, vicinity, rating }) {
-
-    // }
   },
   mounted() {
     this.fetchAllRestaurants();
