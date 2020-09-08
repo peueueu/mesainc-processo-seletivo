@@ -54,6 +54,7 @@ export default {
 <style lang="scss" scoped>
 #user-panel {
   width: 100%;
+  height: 100%;
   max-width: 450px;
   background: $white;
   display: flex;
@@ -64,8 +65,9 @@ export default {
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.4);
 }
 
-.container_list {
+.container-list {
   display: flex !important;
   justify-content: center !important;
+  height: 60% !important;
 }
 </style>

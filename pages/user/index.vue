@@ -39,9 +39,4 @@ export default {
   height: 100vh;
   display: flex;
 }
-
-.container_list {
-  display: flex !important;
-  justify-content: center !important;
-}
 </style>
