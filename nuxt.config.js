@@ -24,6 +24,12 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
+    script: [
+      {
+        src:
+          "https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"
+      }
+    ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
       {

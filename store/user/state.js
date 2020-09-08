@@ -3,5 +3,5 @@ export default () => ({
   first_name: "",
   last_name: "",
   avatar: "",
-  isFav: false
+  isFav: false,
 });

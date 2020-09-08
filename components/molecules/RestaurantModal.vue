@@ -3,20 +3,31 @@
     <div id="restaurant-modal">
       <div class="modal-header">
         <h1>{{ restaurantName }}</h1>
-        <span>{{ restaurantAddress }}</span>
-        <span class="rating"
-          ><img src="~/assets/img/star.svg" alt="rating-star" />
-          <span>{{ restaurantScore }}</span>
-        </span>
+        <div class="info-header">
+          <span>{{ restaurantAddress }}</span>
+
+          <span class="rating"
+            ><img src="~/assets/img/star.svg" alt="rating-star" />
+            {{ restaurantScore }}
+          </span>
+        </div>
       </div>
       <div class="modal-body">
         <section class="comments">
-          There are no comments
+          {{ comments.length ? "" : "There are no comments" }}
+          <ul id="commentList">
+            <FlavorReview
+              v-for="comment in comments"
+              :key="comment.id"
+              :userReview="comment.rating"
+              :userComment="comment.comment"
+            />
+          </ul>
         </section>
         <section class="review">
           <div>
             <h3>Leave your comment below:</h3>
-            <FlavorComment />
+            <FlavorComment @input="value => getComment(value)" />
           </div>
           <div class="controller">
             <StarsRatings
@@ -28,7 +39,11 @@
               :rounded-corners="true"
               :padding="5"
             />
-            <FlavorButton name="Send Comment" className="comment-btn" />
+            <FlavorButton
+              name="Send Comment"
+              className="comment-btn"
+              @click="storeComment"
+            />
           </div>
         </section>
       </div>
@@ -37,15 +52,15 @@
 </template>
 
 <script>
-import FlavorCover from "@/components/atoms/FlavorCover";
-import FlavorButton from "@/components/atoms/FlavorButton";
-import FlavorComment from "@/components/atoms/FlavorComment";
+import localforage from "localforage";
+import { uuid } from "vue-uuid";
 import StarsRatings from "vue-star-rating";
-import BannerTitle from "@/components/atoms/BannerTitle";
 export default {
   data() {
     return {
-      rating: 0
+      rating: 0.0,
+      review: "",
+      comments: []
     };
   },
   props: {
@@ -59,7 +74,42 @@ export default {
     },
     restaurantScore: {
       type: Number
+    },
+    restaurantId: {
+      type: String
     }
+  },
+  methods: {
+    getComment(value) {
+      this.review = value;
+    },
+    async storeComment() {
+      // id: uuid.v1(),
+      // place_id: this.restaurantId,
+      // rating: this.rating,
+      // comment: this.review
+      await localforage.getItem("ratings").then(ratings => {
+        ratings = ratings || [];
+        ratings.push({
+          id: uuid.v1(),
+          place_id: this.restaurantId,
+          rating: this.rating,
+          comment: this.review
+        });
+        localforage.setItem("ratings", ratings).then(() => {
+          this.getComments();
+        });
+      });
+    },
+    async getComments() {
+      let ratings = await localforage.getItem("ratings");
+      this.comments = await ratings.filter(reviews => {
+        return reviews.place_id === this.restaurantId;
+      });
+    }
+  },
+  mounted() {
+    this.getComments();
   }
 };
 </script>
@@ -82,6 +132,7 @@ export default {
   background: $white;
   width: 600px;
   height: 550px;
+  border-radius: 5px;
 
   .modal-header {
     background: $primaryColor;
@@ -89,8 +140,13 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
     border-radius: 5px 5px 0 0;
+
+    .info-header {
+      display: flex;
+      align-items: center;
+    }
 
     h1 {
       color: $white;
@@ -103,10 +159,10 @@ export default {
     .rating {
       display: flex;
       align-self: flex-start;
-      padding-top: 5px;
+      margin-left: 8px;
 
-      span {
-        margin: 3px 0 0 4px;
+      img {
+        margin-right: 3px;
       }
     }
   }
@@ -115,23 +171,33 @@ export default {
     display: flex;
     height: 500px;
     background: $white;
-    padding: 30px;
+    padding: 30px 15px;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    border-radius: 0 0 5px 5px;
+    border-radius: 5px;
+
     h3 {
       color: $darkGrey;
+    }
+    section.comments {
+      width: 100%;
+    }
+    #commentList {
+      width: 100%;
+      overflow-y: scroll;
+      max-height: 250px;
     }
     .review {
       display: flex;
       align-items: flex-end;
-    }
-    .comment-btn {
-      padding: 14px 32px;
-      font-size: 1rem;
-      margin-top: 20px;
-      margin-bottom: 5px;
+
+      .comment-btn {
+        padding: 14px 32px;
+        font-size: 1rem;
+        margin-top: 20px;
+        margin-bottom: 5px;
+      }
     }
   }
 }

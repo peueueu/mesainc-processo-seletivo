@@ -1,9 +1,23 @@
 <template>
-  <textarea name="comment" id="comment" rows="6"></textarea>
+  <textarea
+    name="comment"
+    id="comment"
+    rows="6"
+    v-model="review"
+    @input="$emit('input', $event.target.value)"
+    maxlength="140"
+    placeholder="Max.140 characters"
+  ></textarea>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      review: ""
+    };
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -19,6 +19,7 @@
       :restaurantName="location.name"
       :restaurantAddress="location.address"
       :restaurantScore="location.score"
+      :restaurantId="location.id"
     />
   </div>
 </template>
@@ -39,11 +40,12 @@ export default {
     };
   },
   methods: {
-    showDetails({ name, address, score }) {
+    showDetails({ name, address, score, id }) {
       this.location = {
         name,
         address,
-        score
+        score,
+        id
       };
       console.log(this.locations);
     },
