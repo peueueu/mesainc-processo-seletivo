@@ -84,10 +84,10 @@ export default {
 <style lang="scss">
 #flavorList {
   width: 350px;
-  height: 350px;
+  height: 90%;
   display: flex;
   flex-direction: column;
-  margin: 0 auto 100px;
+  margin: 0 auto 30px;
   justify-content: flex-start;
 }
 .title_wrapper {
@@ -101,11 +101,5 @@ export default {
 
 .listRestaurants {
   overflow-y: scroll;
-}
-
-@media (min-device-height: 960px) {
-  #flavorList {
-    height: 480px;
-  }
 }
 </style>
