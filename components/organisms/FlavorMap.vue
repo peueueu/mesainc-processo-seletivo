@@ -90,7 +90,7 @@ export default {
           this.centerCoord.lat = position.coords.latitude;
           this.centerCoord.lng = position.coords.longitude;
           const response = await this.$axios.get(
-            `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8`
+            `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${position.coords.latitude.toString()},${position.coords.longitude.toString()}&radius=1000&type=restaurant&key=AIzaSyCBvfAxcxJ54CvkiGuOM0EyzIk_4dVWGI8`
           );
           this.locations = [...response.data.results];
           this.loaded = true;
