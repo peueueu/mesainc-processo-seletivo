@@ -54,6 +54,9 @@ export default {
   env: {
     API_KEY: process.env.API_KEY || ""
   },
+  generate: {
+    fallback: true
+  },
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
