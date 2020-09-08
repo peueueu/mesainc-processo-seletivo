@@ -11,8 +11,8 @@ export default {
       Vue.notify({
         group: "success",
         type: "success",
-        title: "ta logado magrão",
-        text: "Me contrata ja11111, welcome to flavorit"
+        title: "Login with success",
+        text: "Welcome to flavorit! :)"
       });
 
       commit("SET_TOKEN", response.data.token);
@@ -24,8 +24,8 @@ export default {
       Vue.notify({
         group: "error",
         type: "error",
-        title: "Deu ruim magrão",
-        text: `Azedou!!!!!!!!!!! ${err}`
+        title: "Login Unscessfull",
+        text: `Couldn't sign in`
       });
     }
   },
@@ -39,17 +39,17 @@ export default {
         Vue.notify({
           group: "success",
           type: "success",
-          title: "Tu existe magrão",
+          title: "Account created with success",
           text:
-            "Me contrata ja11111, welcome to flavorit, join the flavor side of the force."
+            "Please go to the login page, and enter your personal data."
         });
       }
     } catch (err) {
       Vue.notify({
         group: "error",
         type: "error",
-        title: "Deu ruim magrão",
-        text: `Azedou!!!!!!!!!!! ${err}, Your lack of faith is disturbing`
+        title: "Failed to create account",
+        text: `Couldn't create acccount. Sorry :(`
       });
     }
   },

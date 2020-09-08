@@ -72,24 +72,6 @@ export default {
     border-radius: 50%;
     position: relative;
     transition: all 0.4s ease;
-    &::before {
-      position: absolute;
-      content: "";
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: url("~assets/img/edit.svg"), rgba(0, 0, 0, 0.5);
-      background-size: 30px;
-      background-repeat: no-repeat;
-      background-position: center;
-      visibility: hidden;
-    }
-    &:hover {
-      cursor: pointer;
-      &::before {
-        visibility: visible;
-      }
-    }
   }
 }
 </style>

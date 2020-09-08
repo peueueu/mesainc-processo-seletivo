@@ -100,6 +100,7 @@ export default {
   .card_body {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     img:hover {
       cursor: pointer;

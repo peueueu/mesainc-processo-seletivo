@@ -15,7 +15,6 @@
       @bounds_changed="checkForMarkers"
       v-lazy-load
     >
-      <!-- styles: mapStyle -->
       <GMapMarker
         v-for="location in locations"
         :key="location.id"
@@ -25,18 +24,28 @@
         }"
         @click="currentLocation = location"
       >
-        <!-- :options="{
-            icon:
-              location === currentLocation ? pins.selected : pins.notSelected
-          }" -->
         <GMapInfoWindow :options="{ maxWidth: 200 }" class="gmap-info-box">
-          <b>{{ location.name }}</b>
-          <br />
+          <div class="gmapinfoheader">
+            <strong>{{ location.name }}</strong>
+            <span
+              ><span
+                :style="{
+                  color: location.opening_hours ? 'green' : 'red',
+                  marginLeft: '10px'
+                }"
+                >•</span
+              >{{ location.opening_hours ? "Open" : "Closed" }}</span
+            >
+          </div>
           <br />
           <code>
-            Lat: {{ location.lat }},
-            <br />
-            Lng: {{ location.lng }}
+            <span class="rating-restaurant"
+              >Restaurant Address: {{ location.vicinity }}</span
+            >
+            <span class="rating-restaurant"
+              >Restaurant Score: {{ location.rating }}
+              <img src="~assets/img/GoldenStar.svg" alt="rating pin"
+            /></span>
           </code>
         </GMapInfoWindow>
       </GMapMarker>
@@ -106,5 +115,29 @@ export default {
 
 .GMap__Wrapper {
   height: 100%;
+}
+
+.gm-style-iw,
+.gm-style-iw-d,
+.gm-style-iw-c {
+  min-width: 300px;
+  max-width: 500px !important;
+}
+
+.GMap__InfoWindow {
+  padding: 10px;
+  display: flex;
+  font-size: 1rem;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.rating-restaurant {
+  font-size: 1rem;
+  display: flex;
+  align-items: flex-start;
+  img {
+    margin-left: 3px;
+  }
 }
 </style>
