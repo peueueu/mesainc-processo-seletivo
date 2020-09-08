@@ -44,7 +44,7 @@
             >
             <span class="rating-restaurant"
               >Restaurant Score: {{ location.rating }}
-              <img src="~assets/img/GoldenStar.svg" alt="rating pin"
+              <img src="~assets/img/Goldenstar.svg" alt="rating pin"
             /></span>
           </code>
         </GMapInfoWindow>
